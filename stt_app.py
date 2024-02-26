@@ -5,8 +5,6 @@ import pickle
 import streamlit as st
 from io import StringIO
 
-!pip install sentence_transformers
-!pip install ko_sentence_transformers
 
 from sentence_transformers import SentenceTransformer, models, util
 from ko_sentence_transformers.models import KoBertTransformer
