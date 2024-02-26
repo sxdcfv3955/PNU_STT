@@ -5,7 +5,6 @@ import pickle
 import streamlit as st
 from io import StringIO
 
-
 from sentence_transformers import SentenceTransformer, models, util
 from ko_sentence_transformers.models import KoBertTransformer
 
@@ -24,13 +23,24 @@ uploaded_file2 = st.file_uploader("Choose a file 2")
 
 if uploaded_file1 is not None and uploaded_file2 is not None:
     
-    ufile1 = pd.read_csv(uploaded_file1, sep='\n', header=None, encoding="utf-8")
-    ufile1.columns = ['TEXT']
-    file1 = list(ufile1['TEXT'])
+#     ufile1 = pd.read_csv(uploaded_file1, sep='\n', header=None, encoding="utf-8")
+#     ufile1.columns = ['TEXT']
+#     file1 = list(ufile1['TEXT'])
 
-    ufile2 = pd.read_csv(uploaded_file2, sep='\n', header=None, encoding="utf-8")
-    ufile2.columns = ['TEXT']
-    file2 = list(ufile2['TEXT'])
+#     ufile2 = pd.read_csv(uploaded_file2, sep='\n', header=None, encoding="utf-8")
+#     ufile2.columns = ['TEXT']
+#     file2 = list(ufile2['TEXT'])
+
+
+    file1=[]
+    with open(uploaded_file1.name, "r", encoding="utf-8") as f1:
+        for i in f1:
+            file1.append(i.strip())
+            
+    file2=[]
+    with open(uploaded_file2.name, "r", encoding="utf-8") as f2:
+        for i in f2:
+            file2.append(i.strip())
     
     
 #     graph = open("graph_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8")
@@ -112,28 +122,9 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
             c1 = 0
             q += 1
             
-    graph.close()
-    result.close()
-    
-#     result_ = pd.DataFrame(result_)
-#     result_file = result_.to_csv(index=False)
+#     graph.close()
+#     result.close()
 
-#     st.download_button(
-#         label="Download Result File",
-#         data=result_file,
-#         file_name='result.text',
-#         mime='text/csv',
-#     )
-    
-#     graph_ = pd.DataFrame(graph_)
-#     graph_file = graph_.to_csv(index=False)
-
-#     st.download_button(
-#         label="Download Graph File",
-#         data=graph_file,
-#         file_name='graph.text',
-#         mime='text/csv',
-#     )
     
     if st.button('Result File Download'):
         with open("result2_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8") as r : 
