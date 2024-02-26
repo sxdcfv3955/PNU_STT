@@ -32,15 +32,30 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
 #     file2 = list(ufile2['TEXT'])
 
 
+    # file1=[]
+    # with open(uploaded_file1.name, "r", encoding="utf-8") as f1:
+    #     for i in f1:
+    #         file1.append(i.strip())
+            
+    # file2=[]
+    # with open(uploaded_file2.name, "r", encoding="utf-8") as f2:
+    #     for i in f2:
+    #         file2.append(i.strip())
+
+    
     file1=[]
-    with open(uploaded_file1.name, "r", encoding="utf-8") as f1:
-        for i in f1:
-            file1.append(i.strip())
+    ufile1 = StringIO(uploaded_file1.getvalue().decode("utf-8"))
+    st.write(ufile1)
+
+    for i in ufile1 :
+        file1.append(i)
             
     file2=[]
-    with open(uploaded_file2.name, "r", encoding="utf-8") as f2:
-        for i in f2:
-            file2.append(i.strip())
+    ufile2 = StringIO(uploaded_file2.getvalue().decode("utf-8"))
+    st.write(ufile2)
+
+    for i in ufile2 :
+        file2.append(i)
     
     
 #     graph = open("graph_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8")
