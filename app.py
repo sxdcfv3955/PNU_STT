@@ -175,29 +175,18 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
     # 제목을 설정
     plt.title('Top similar sentence in corpus') # corpus(rfp01)중에서 query(rfp01)와 가장 유사한 문장
     
-    #y축에 레이블
     plt.ylabel('Score')
     plt.xlabel('No. of Query')
-    plt.savefig('/content/drive/MyDrive/Colab Notebooks/SentenceBERT/graph_Result.png', dpi = 1200)
-    plt.show()
-
-
-
-
-
-
-
+    plt.savefig('graph_Result.png', dpi = 1200)
 
     
-    
-        
     st.write(str(time.time()-start)+" sec")
     st.download_button('Download Result File', result_, file_name="result_"+now.strftime('%Y%m%d%H%M')+".txt")
 
-    with open("flower.png", "rb") as file:
+    with open("graph_Result.png", "rb") as file:
         btn = st.download_button(
                 label="Download Graph image",
-                data=plt.savefig('/content/drive/MyDrive/Colab Notebooks/SentenceBERT/graph_Result.png', dpi = 1200),
+                data=file,
                 file_name="graph_"+now.strftime('%Y%m%d%H%M')+".png",
                 mime="image/png"
               )
