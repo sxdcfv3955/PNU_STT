@@ -145,6 +145,8 @@ if st.button('Start'):
 #     graph.close()
 #     result.close()
 
+    
+    st.write(str(time.time()-start)+" sec")
     st.download_button('Download Result File', result_, file_name="result_"+now.strftime('%Y%m%d%H%M')+".txt")
     st.download_button('Download Graph File', graph_, file_name="graph_"+now.strftime('%Y%m%d%H%M')+".txt")
 
