@@ -153,11 +153,13 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
     b1 = []
     c1 = []
 
-    content1 = list(map(lambda s: s.strip(), graph_))
+    content1 = graph_.split('\n')[:-1]
+    print(content1[0])
     
     i = 0
     for line in content1:
         imsi1 = content1[i].split(',')
+        print(imsi1)
         a1.append(float(imsi1[0]))
         b1.append(float(imsi1[1]))
         c1.append(float(imsi1[2]))
@@ -171,10 +173,10 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
     plt.xticks(np.arange(1, i+1, 1))
     plt.yticks(np.arange(0.3, 1.2, 0.1))
     plt.legend()
-    
+
     # 제목을 설정
     plt.title('Top similar sentence in corpus') # corpus(rfp01)중에서 query(rfp01)와 가장 유사한 문장
-    
+
     plt.ylabel('Score')
     plt.xlabel('No. of Query')
     plt.savefig('graph_Result.png', dpi = 1200)
