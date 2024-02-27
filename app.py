@@ -45,14 +45,12 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
     
     file1=[]
     ufile1 = StringIO(uploaded_file1.getvalue().decode("utf-8"))
-    st.write(ufile1)
 
     for i in ufile1 :
         file1.append(i)
             
     file2=[]
     ufile2 = StringIO(uploaded_file2.getvalue().decode("utf-8"))
-    st.write(ufile2)
 
     for i in ufile2 :
         file2.append(i)
@@ -61,8 +59,8 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
 #     graph = open("graph_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8")
 #     result = open("result_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8")
 
-    graph_ = []
-    result_ = []
+    graph_ = ""
+    result_ = ""
     
     embedder = SentenceTransformer("jhgan/ko-sbert-sts")
 
@@ -88,18 +86,21 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
 #             print("\n\n======================\n", file = result)
 #             print("Query(%i):" %(q), query + "\n", file = result)
             
-            result_.append("\n\n======================\n")
-            result_.append("Query(" + str(q) + "):" + str(query) + "\n")
+            result_+=("\n\n======================\n")
+            result_+=("Query(" + str(q) + "):" + str(query) + "\n")
+            result_+='\n'
 
             for idx in top_results[0:top_k]:
                 if q != idx+1:
                     
 #                     print("Corpus(%i): " %(idx+1) + corpus[idx].strip(), "(Score: %.4f)" % (cos_scores[idx]), file = result)
-                    result_.append("Corpus(" + str(idx.item()+1) + "):" + str(corpus[idx].strip()) + " (Score: " + str(cos_scores[idx].item()) + " )")
-    
+                    result_+=("Corpus(" + str(idx.item()+1) + "):" + str(corpus[idx].strip()) + " (Score: " + str(cos_scores[idx].item()) + " )")
+                    result_+='\n'
+
                     if c1 == 0:
 #                         print("%.4f, %i, %i" %(cos_scores[idx], q, idx), file = graph)
-                        graph_.append(str(cos_scores[idx].item()) + "," +  str(q) + "," + str(idx.item()))
+                        graph_+=(str(cos_scores[idx].item()) + "," +  str(q) + "," + str(idx.item()))
+                        graph_+='\n'
                         c1 += 1
 
             c1 = 0
@@ -123,16 +124,19 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
 #             print("\n\n======================\n", file = result)
 #             print("Query(%i):" %(q), query + "\n", file = result)
             
-            result_.append("\n\n======================\n")
-            result_.append("Query(" + str(q) + "):" + str(query) + "\n")
-
+            result_+=("\n\n======================\n")
+            result_+=("Query(" + str(q) + "):" + str(query) + "\n")
+            result_+='\n'
             for idx in top_results[0:top_k]:
 #                 print("Corpus(%i): " %(idx+1) + corpus[idx].strip(), "(Score: %.4f)" % (cos_scores[idx]), file = result)
-                result_.append("Corpus(" + str(idx.item()+1) + "):" + str(corpus[idx].strip()) + " (Score: " + str(cos_scores[idx].item()) + " )")
+                result_+=("Corpus(" + str(idx.item()+1) + "):" + str(corpus[idx].strip()) + " (Score: " + str(cos_scores[idx].item()) + " )")
+                result_+='\n'
                 
                 if c1 == 0:
 #                     print("%.4f, %i, %i" %(cos_scores[idx], q, idx), file = graph)
-                    graph_.append(str(cos_scores[idx].item()) + "," +  str(q) + "," + str(idx.item()))
+                    graph_+=(str(cos_scores[idx].item()) + "," +  str(q) + "," + str(idx.item()))
+                    graph_+='\n'
+
                     c1 += 1
             c1 = 0
             q += 1
@@ -140,24 +144,27 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
 #     graph.close()
 #     result.close()
 
+    st.download_button('Download Result File', result_, file_name="result_"+now.strftime('%Y%m%d%H%M')+".txt")
+    st.download_button('Download Graph File', graph_, file_name="graph_"+now.strftime('%Y%m%d%H%M')+".txt")
+
     
-    if st.button('Result File Download'):
-        with open("result2_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8") as r : 
-            for num, i in enumerate(result_):
-                if num+1 < len(result_):
-                    r.write(''.join(i) + "\n")
-                else:
-                    r.write(''.join(i))
-                    st.write("Result File Download Done")
+    # if st.button('Result File Download'):
+    #     with open("result2_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8") as r : 
+    #         for num, i in enumerate(result_):
+    #             if num+1 < len(result_):
+    #                 r.write(''.join(i) + "\n")
+    #             else:
+    #                 r.write(''.join(i))
+    #                 st.write("Result File Download Done")
             
-    if st.button('Graph File Download'):
-        with open("graph2_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8") as g : 
-            for num, i in enumerate(graph_):
-                if num+1 < len(graph_):
-                    g.write(''.join(i) + "\n")
-                else:
-                    g.write(''.join(i))
-                    st.write("Graph File Download Done")
+    # if st.button('Graph File Download'):
+    #     with open("graph2_"+now.strftime('%Y%m%d%H%M')+".txt", 'w', encoding="utf-8") as g : 
+    #         for num, i in enumerate(graph_):
+    #             if num+1 < len(graph_):
+    #                 g.write(''.join(i) + "\n")
+    #             else:
+    #                 g.write(''.join(i))
+    #                 st.write("Graph File Download Done")
 
                     
     
