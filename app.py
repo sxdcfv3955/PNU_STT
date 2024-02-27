@@ -66,8 +66,9 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
 
     corpus = file1
     corpus_embeddings = embedder.encode(corpus, convert_to_tensor=True)
-    
     queries = file2
+
+if st.button('Start'):
     
     if(str(uploaded_file1.name) == str(uploaded_file2.name)) : 
         st.write(str(uploaded_file1.name) + " == " + str(uploaded_file2.name))
