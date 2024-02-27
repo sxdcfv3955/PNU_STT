@@ -157,11 +157,11 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
     
     i = 0
     for line in content1:
-      imsi1 = content1[i].split(',')
-      a1.append(float(imsi1[0]))
-      b1.append(float(imsi1[1]))
-      c1.append(float(imsi1[2]))
-      i += 1
+        imsi1 = content1[i].split(',')
+        a1.append(float(imsi1[0]))
+        b1.append(float(imsi1[1]))
+        c1.append(float(imsi1[2]))
+        i += 1
     
     fig, ax = plt.subplots(figsize=(18,6))
     # x축에는 query 순서값, y축에는 sbert score값을 표시한다.
