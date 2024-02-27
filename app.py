@@ -19,6 +19,8 @@ start = time.time()
 
 st.title('DATALAB STT TEST')
 
+sw.write("---")
+
 uploaded_file1 = st.file_uploader("Choose a file 1")
 uploaded_file2 = st.file_uploader("Choose a file 2")
 
@@ -92,12 +94,12 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
                 if q != idx+1:
                     
 #                     print("Corpus(%i): " %(idx+1) + corpus[idx].strip(), "(Score: %.4f)" % (cos_scores[idx]), file = result)
-                    result_+=("Corpus(" + str(idx.item()+1) + "):" + str(corpus[idx].strip()) + " (Score: " + str(cos_scores[idx].item()) + " )")
+                    result_+=("Corpus(" + str(idx.item()+1) + "):" + str(corpus[idx].strip()) + " (Score: " + str(round(cos_scores[idx].item(),2)) + " )")
                     result_+='\n'
 
                     if c1 == 0:
 #                         print("%.4f, %i, %i" %(cos_scores[idx], q, idx), file = graph)
-                        graph_+=(str(cos_scores[idx].item()) + "," +  str(q) + "," + str(idx.item()))
+                        graph_+=(str(round(cos_scores[idx].item(),2)) + "," +  str(q) + "," + str(idx.item()+1))
                         graph_+='\n'
                         c1 += 1
 
@@ -127,12 +129,12 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
             result_+='\n'
             for idx in top_results[0:top_k]:
 #                 print("Corpus(%i): " %(idx+1) + corpus[idx].strip(), "(Score: %.4f)" % (cos_scores[idx]), file = result)
-                result_+=("Corpus(" + str(idx.item()+1) + "):" + str(corpus[idx].strip()) + " (Score: " + str(cos_scores[idx].item()) + " )")
+                result_+=("Corpus(" + str(idx.item()+1) + "):" + str(corpus[idx].strip()) + " (Score: " + str(round(cos_scores[idx].item(),2)) + " )")
                 result_+='\n'
                 
                 if c1 == 0:
 #                     print("%.4f, %i, %i" %(cos_scores[idx], q, idx), file = graph)
-                    graph_+=(str(cos_scores[idx].item()) + "," +  str(q) + "," + str(idx.item()))
+                    graph_+=(str(round(cos_scores[idx].item(),2)) + "," +  str(q) + "," + str(idx.item()+1))
                     graph_+='\n'
 
                     c1 += 1
@@ -141,11 +143,23 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
                 
 #     graph.close()
 #     result.close()
+
+
+
+
+
+
+
+
+
+
+
+    
     
         
     st.write(str(time.time()-start)+" sec")
     st.download_button('Download Result File', result_, file_name="result_"+now.strftime('%Y%m%d%H%M')+".txt")
-    st.download_button('Download Graph File', graph_, file_name="graph_"+now.strftime('%Y%m%d%H%M')+".txt")
+    # st.download_button('Download Graph File', graph_, file_name="graph_"+now.strftime('%Y%m%d%H%M')+".txt")
 
     
     # if st.button('Result File Download'):
