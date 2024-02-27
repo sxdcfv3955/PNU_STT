@@ -11,6 +11,7 @@ from ko_sentence_transformers.models import KoBertTransformer
 import time
 from datetime import datetime
 
+embedder = SentenceTransformer("jhgan/ko-sbert-sts")
 
 now = datetime.now()
 start = time.time()
@@ -61,8 +62,6 @@ if uploaded_file1 is not None and uploaded_file2 is not None:
 
     graph_ = ""
     result_ = ""
-    
-    embedder = SentenceTransformer("jhgan/ko-sbert-sts")
 
     corpus = file1
     corpus_embeddings = embedder.encode(corpus, convert_to_tensor=True)
