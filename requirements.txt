@@ -1,0 +1,2 @@
+sentence_transformers
+ko_sentence_transformers
